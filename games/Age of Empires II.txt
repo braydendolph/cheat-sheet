@@ -1,0 +1,114 @@
+// Age of Empires II: DE — example setup (example sheet).
+// Flip pages with Ctrl+F8.
+
+# Core
+## Mouse
+Front btn | All Town Centers
+Back btn | Idle villager
+Middle | Last alert
+
+## Always
+Space | Visible army
+Tab | Attack move
+Caps | Idle military
+` | Go to selected
+F1 | Delete
+Y | Gather on self
+
+## Groups
+Ctrl+1–5 | Save
+1–5 | Select (×2 jump)
+Shift+1–5 | Add
+
+## Town Center
+Q | Villager (Shift ×5)
+A | Loom
+S | Wheelbarrow
+D | Town Watch
+Z | Age up
+B | Town bell
+
+# Build
+## Villager
+> | Q  Economic | W  Military
+Q | House | Barracks
+W | Mill | Archery Range
+E | Mining Camp | Stable
+R | Lumber Camp | Siege Workshop
+T | Dock |
+A | Farm | Outpost
+S | Blacksmith | Palisade
+D |  | Stone Wall
+F | Monastery | Tower
+G | University |
+Z | Town Center | Gate
+X | Market | Palisade Gate
+C |  | Castle
+
+## Also
+E | Repair
+B | Cancel
+Alt+Q | Go to Lumber
+Alt+W | Go to Mill
+Alt+E | Go to Mining
+
+# Army
+## Select all
+Ctrl+B | Barracks
+Ctrl+A | Archery Range
+Ctrl+S | Stable
+Ctrl+W | Siege Workshop
+Ctrl+C | Castle
+Ctrl+X | Monastery
+Ctrl+D | Docks
+Ctrl+F | Blacksmith
+Ctrl+R | University
+Shift+, | All military
+
+## Commands
+Tab | Attack move
+Q | Patrol
+W | Guard
+E | Follow
+G | Stop
+T | Garrison
+
+## Stances
+A | Aggressive
+S | Defensive
+D | Stand ground
+F | No attack
+
+## Formations
+Z | Line
+X | Box
+C | Staggered
+V | Flank
+
+# Tech
+## Units
+> | Barracks | Range | Stable
+Q | Militia | Archer | Scout
+W | Spear | Skirm | Knight
+E |  | Cav Archer | Camel
+A | Swords | Crossbow | Light Cav
+S | Pike | Elite Skirm | Cavalier
+Z | Supplies | Thumb Ring | Bloodlines
+X | Squires |  | Husbandry
+
+## Blacksmith  Ctrl+F
+Q | Melee attack
+W | Infantry armor
+E | Cavalry armor
+A | Archer attack
+S | Archer armor
+
+## University  Ctrl+R
+Q | Masonry
+R | Ballistics
+T | Chemistry
+S | Murder Holes
+
+## Eco
+Q | Farm / Wood / Gold
+W | Stone (Mining)

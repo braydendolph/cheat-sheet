@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b222d"/>
+      <stop offset="1" stop-color="#090c11"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd877"/>
+      <stop offset="1" stop-color="#e3a52c"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18202a"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+
+  <!-- tile -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#bg)"/>
+  <rect x="17.5" y="17.5" width="477" height="477" rx="110.5" fill="none"
+        stroke="#ffffff" stroke-opacity="0.07" stroke-width="3"/>
+
+  <!-- keycap: base + raised top face -->
+  <rect x="100" y="124" width="312" height="290" rx="54" fill="#0b0f14"
+        stroke="url(#gold)" stroke-width="14"/>
+  <rect x="128" y="140" width="256" height="222" rx="36" fill="url(#cap)"
+        stroke="url(#gold)" stroke-width="10"/>
+
+  <!-- the "sheet": key tiles + action lines -->
+  <g fill="url(#gold)">
+    <rect x="164" y="182" width="34" height="26" rx="7"/>
+    <rect x="164" y="238" width="34" height="26" rx="7" fill-opacity="0.75"/>
+    <rect x="164" y="294" width="34" height="26" rx="7" fill-opacity="0.5"/>
+  </g>
+  <g stroke="#e9edf3" stroke-width="16" stroke-linecap="round">
+    <line x1="222" y1="195" x2="346" y2="195"/>
+    <line x1="222" y1="251" x2="318" y2="251" stroke-opacity="0.7"/>
+    <line x1="222" y1="307" x2="290" y2="307" stroke-opacity="0.45"/>
+  </g>
+</svg>
