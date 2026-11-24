@@ -43,6 +43,12 @@ C = {
     "status": "#080a0e",
 }
 F = {}  # font families, filled in by _setup_fonts()
+UI = 1.0  # screen DPI / 96, set once the Tk root exists
+
+
+def px(n: float) -> int:
+    """Scale a layout size in 96-DPI pixels to this screen (fonts scale on their own)."""
+    return int(round(n * UI))
 
 
 def _register_bundled_fonts():
@@ -128,9 +134,10 @@ class Slider(tk.Frame):
 
     def __init__(self, parent, value, lo, hi, on_change, length=180, fmt="{:.0%}"):
         super().__init__(parent, bg=C["surface"])
+        length = px(length)
         self.lo, self.hi, self.value, self.on_change, self.length, self.fmt = \
             lo, hi, value, on_change, length, fmt
-        self.cv = tk.Canvas(self, width=length, height=20, bg=C["surface"],
+        self.cv = tk.Canvas(self, width=length, height=px(20), bg=C["surface"],
                             highlightthickness=0, bd=0, cursor="hand2")
         self.cv.pack(side="left")
         self.out = tk.Label(self, text="", width=5, anchor="e", bg=C["surface"],
@@ -141,16 +148,16 @@ class Slider(tk.Frame):
         self._draw()
 
     def _draw(self):
-        c, pad, y = self.cv, 8, 10
+        c, pad, y, r, w = self.cv, px(8), px(10), px(7), max(2, px(4))
         x = pad + (self.value - self.lo) / (self.hi - self.lo) * (self.length - 2 * pad)
         c.delete("all")
-        c.create_line(pad, y, self.length - pad, y, fill=C["raised"], width=4, capstyle="round")
-        c.create_line(pad, y, x, y, fill=C["accent"], width=4, capstyle="round")
-        c.create_oval(x - 7, y - 7, x + 7, y + 7, fill=C["text"], outline=C["bg"], width=2)
+        c.create_line(pad, y, self.length - pad, y, fill=C["raised"], width=w, capstyle="round")
+        c.create_line(pad, y, x, y, fill=C["accent"], width=w, capstyle="round")
+        c.create_oval(x - r, y - r, x + r, y + r, fill=C["text"], outline=C["bg"], width=2)
         self.out.configure(text=self.fmt.format(self.value))
 
     def _drag(self, e):
-        pad = 8
+        pad = px(8)
         frac = (e.x - pad) / max(1, self.length - 2 * pad)
         v = round(max(self.lo, min(self.hi, self.lo + frac * (self.hi - self.lo))), 2)
         if v != self.value:
@@ -188,7 +195,7 @@ class PositionPicker(tk.Frame):
 
     def __init__(self, parent, value, on_change):
         super().__init__(parent, bg=C["surface"])
-        self.cv = tk.Canvas(self, width=96, height=56, bg=C["surface"], highlightthickness=0)
+        self.cv = tk.Canvas(self, width=px(96), height=px(56), bg=C["surface"], highlightthickness=0)
         self.cv.pack()
         self.value, self.on_change = value, on_change
         self.cv.bind("<Button-1>", self._click)
@@ -197,17 +204,17 @@ class PositionPicker(tk.Frame):
     def _draw(self):
         c = self.cv
         c.delete("all")
-        c.create_rectangle(1, 1, 95, 55, outline=C["border"], fill=C["surface2"])
+        c.create_rectangle(1, 1, px(96) - 1, px(56) - 1, outline=C["border"], fill=C["surface2"])
         for name, r, col in self.SPOTS:
-            x = 8 + col * 30
-            y = 7 + r * 28
+            x = px(8 + col * 30)
+            y = px(7 + r * 28)
             on = name == self.value
-            c.create_rectangle(x, y, x + 20, y + 14,
+            c.create_rectangle(x, y, x + px(20), y + px(14),
                                fill=C["accent"] if on else C["raised"], outline="")
 
     def _click(self, e):
-        col = min(2, max(0, (e.x - 4) // 30))
-        r = 0 if e.y < 28 else 1
+        col = min(2, max(0, int((e.x / UI - 4) // 30)))
+        r = 0 if e.y / UI < 28 else 1
         for name, rr, cc in self.SPOTS:
             if rr == r and cc == col and name != self.value:
                 self.value = name
@@ -219,7 +226,7 @@ class Switch(tk.Frame):
     def __init__(self, parent, text, value, on_change):
         super().__init__(parent, bg=C["surface"], cursor="hand2")
         self.value, self.on_change = value, on_change
-        self.cv = tk.Canvas(self, width=34, height=18, bg=C["surface"], highlightthickness=0)
+        self.cv = tk.Canvas(self, width=px(34), height=px(18), bg=C["surface"], highlightthickness=0)
         self.cv.pack(side="left")
         self.lbl = tk.Label(self, text=text, bg=C["surface"], fg=C["muted"], font=font("ui", 9))
         self.lbl.pack(side="left", padx=(8, 0))
@@ -232,11 +239,12 @@ class Switch(tk.Frame):
         c.delete("all")
         on = self.value
         fill = C["accent"] if on else C["raised"]
-        c.create_oval(1, 1, 17, 17, fill=fill, outline="")
-        c.create_oval(17, 1, 33, 17, fill=fill, outline="")
-        c.create_rectangle(9, 1, 25, 17, fill=fill, outline="")
-        x = 25 if on else 9
-        c.create_oval(x - 6, 3, x + 6, 15, fill=C["ink"] if on else C["muted"], outline="")
+        c.create_oval(px(1), px(1), px(17), px(17), fill=fill, outline="")
+        c.create_oval(px(17), px(1), px(33), px(17), fill=fill, outline="")
+        c.create_rectangle(px(9), px(1), px(25), px(17), fill=fill, outline="")
+        x = px(25 if on else 9)
+        c.create_oval(x - px(6), px(3), x + px(6), px(15), fill=C["ink"] if on else C["muted"],
+                      outline="")
 
     def _toggle(self, _e=None):
         self.value = not self.value
@@ -272,11 +280,18 @@ class App:
         cfg.ensure_library()
         _register_bundled_fonts()
         self.root = tk.Tk()
+        global UI
+        try:
+            UI = max(1.0, self.root.winfo_fpixels("1i") / 96.0)
+        except tk.TclError:
+            UI = 1.0
         _setup_fonts(self.root)
         self.root.title(APP_NAME)
         self.root.configure(bg=C["bg"])
-        self.root.geometry("1280x860")
-        self.root.minsize(1100, 820)
+        sw, sh = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
+        w, h = min(px(1280), int(sw * 0.92)), min(px(860), int(sh * 0.88))
+        self.root.geometry(f"{w}x{h}")
+        self.root.minsize(min(px(1100), w), min(px(820), h))
         self.root.protocol("WM_DELETE_WINDOW", self.hide_manager)
         self._window_icon()
         self._dark_titlebar()
@@ -356,7 +371,7 @@ class App:
         self._build_statusbar()
 
     def _build_sidebar(self):
-        side = tk.Frame(self.root, bg=C["surface"], width=236)
+        side = tk.Frame(self.root, bg=C["surface"], width=px(236))
         side.grid(row=0, column=0, sticky="nsw")
         side.grid_propagate(False)
         side.columnconfigure(0, weight=1)
@@ -365,7 +380,7 @@ class App:
         brand = tk.Frame(side, bg=C["surface"])
         brand.grid(row=0, column=0, sticky="ew", padx=20, pady=(22, 22))
         try:
-            img = Image.open(cfg.asset("logo_256.png")).resize((34, 34), Image.LANCZOS)
+            img = Image.open(cfg.asset("logo_256.png")).resize((px(34), px(34)), Image.LANCZOS)
             self._brand_img = ImageTk.PhotoImage(img)
             tk.Label(brand, image=self._brand_img, bg=C["surface"]).pack(side="left")
         except Exception:
@@ -459,7 +474,7 @@ class App:
         self.gutter.yview(*args)
 
     def _build_settings(self):
-        panel = tk.Frame(self.root, bg=C["surface"], width=380)
+        panel = tk.Frame(self.root, bg=C["surface"], width=px(380))
         panel.grid(row=0, column=2, sticky="nse")
         panel.pack_propagate(False)
         body = tk.Frame(panel, bg=C["surface"])
@@ -479,7 +494,7 @@ class App:
                          font=font("ui", 12))
             b.pack(side="left")
             b.bind("<Button-1>", lambda e, d=d: self._preview_step(d))
-        self.preview = tk.Label(body, bg=C["surface2"], bd=0, width=336, height=212)
+        self.preview = tk.Label(body, bg=C["surface2"], bd=0, width=px(336), height=px(212))
         self.preview.pack(fill="x")
         self.preview_note = tk.Label(body, text="Exactly what you'll see in game",
                                      bg=C["surface"], fg=C["faint"], font=font("ui", 8))
@@ -543,7 +558,7 @@ class App:
                lambda v: self._set("show_hints", v)).pack(side="left", padx=(22, 0))
 
     def _build_statusbar(self):
-        bar = tk.Frame(self.root, bg=C["status"], height=30)
+        bar = tk.Frame(self.root, bg=C["status"], height=px(30))
         bar.grid(row=1, column=0, columnspan=3, sticky="ew")
         bar.pack_propagate(False)
         self.status_dot = tk.Label(bar, text="●", bg=C["status"], fg=C["ok"], font=font("ui", 8))
@@ -713,7 +728,7 @@ class App:
         if pages:
             self.preview_page %= len(pages)
         img = render_overlay(self.editor_game or "", pages, self.preview_page, self.settings, 1.0)
-        bw, bh = 336, 212
+        bw, bh = px(336), px(212)
         pad = 26
         cw, ch = img.width + 2 * pad, img.height + 2 * pad
         ratio = max(cw / bw, ch / bh, 1.0)

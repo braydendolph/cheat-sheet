@@ -1,6 +1,7 @@
 """Paths, settings and the games library."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -159,10 +160,43 @@ def clean_name(name: str) -> str:
     return _BAD_CHARS.sub("", name or "").strip().strip(".")[:60]
 
 
+# SHA-256 of bundled sheets shipped in earlier versions (\r stripped). A user copy that
+# still matches one of these was never edited, so it is safe to refresh on upgrade.
+_STOCK_SHEETS = {
+    "fe78ac74ce3db46a8a33ed3210f7913b5a45d38730931400c5bddac81eb31f10",  # AoE2, v1.0.0
+}
+
+
+def _sheet_hash(path: str) -> str:
+    try:
+        with open(path, "rb") as f:
+            data = f.read()
+    except OSError:
+        return ""
+    if data.startswith(b"\xef\xbb\xbf"):
+        data = data[3:]
+    return hashlib.sha256(data.replace(b"\r", b"")).hexdigest()
+
+
+def _refresh_stock_sheets(bundled: str) -> None:
+    """Replace unedited copies of old bundled sheets with the current ones."""
+    if not os.path.isdir(bundled):
+        return
+    for f in os.listdir(bundled):
+        mine = os.path.join(GAMES_DIR, f)
+        if f.lower().endswith(".txt") and os.path.isfile(mine) \
+                and _sheet_hash(mine) in _STOCK_SHEETS:
+            try:
+                shutil.copy2(os.path.join(bundled, f), mine)
+            except OSError:
+                pass
+
+
 def ensure_library() -> None:
     """Create the games folder; seed it with the bundled sheets on first run."""
     os.makedirs(GAMES_DIR, exist_ok=True)
     if list_games():
+        _refresh_stock_sheets(os.path.join(RES_DIR, "games"))
         return
     bundled = os.path.join(RES_DIR, "games")
     if os.path.isdir(bundled):

@@ -1,83 +1,92 @@
-// Age of Empires II: DE — example setup (example sheet).
-// Flip pages with Ctrl+F8.
+// Age of Empires II: DE — Brayden's setup (Definitive grid + custom keys).
+// Names match Options > Hotkeys (the "Tech:" prefix is dropped). Flip pages with Ctrl+F8.
 
 # Core
 ## Mouse
-Front btn | All Town Centers
-Back btn | Idle villager
-Middle | Last alert
+Front btn | Select all Town Centers
+Back btn | Go to Next Idle Villager
+Middle | Go to Last Notification
 
-## Always
-Space | Visible army
-Tab | Attack move
-Caps | Idle military
-` | Go to selected
-F1 | Delete
-Y | Gather on self
+## Hands on keys
+Space | Select all Visible Military
+Caps | Go to Next Idle Military Unit
+` | Go to Selected Object
+H | Go to Town Center
+Tab | Attack Move
+F1 | Delete Unit
+Y | Set Gather Point on Self
 
-## Groups
-Ctrl+1–5 | Save
-1–5 | Select (×2 jump)
-Shift+1–5 | Add
+## Group Commands
+Ctrl+1–0 | Create Group
+1–0 | Select Group (×2 jump)
+Shift+1–0 | Append Group
+Ctrl+Shift+1–0 | Select & Center Group
 
 ## Town Center
 Q | Villager (Shift ×5)
 A | Loom
-S | Wheelbarrow
-D | Town Watch
-Z | Age up
-B | Town bell
+S | Wheelbarrow, Hand Cart
+D | Town Watch, Town Patrol
+Z | Age Up
+B | Ring Town Bell
+F | Go Back to Work
 
 # Build
-## Villager
+## Villager Build
 > | Q  Economic | W  Military
 Q | House | Barracks
 W | Mill | Archery Range
 E | Mining Camp | Stable
 R | Lumber Camp | Siege Workshop
 T | Dock |
-A | Farm | Outpost
-S | Blacksmith | Palisade
+A | Farm, Pasture | Outpost
+S | Blacksmith | Palisade Wall
 D |  | Stone Wall
 F | Monastery | Tower
-G | University |
+G | University | Bombard Tower
 Z | Town Center | Gate
 X | Market | Palisade Gate
 C |  | Castle
 
-## Also
+## Unit Commands
 E | Repair
-B | Cancel
-Alt+Q | Go to Lumber
+A | Drop Off Resources
+T | Garrison
+G | Stop · Ungarrison
+
+## Cycle Commands
+Alt+Q | Go to Lumber Camp
 Alt+W | Go to Mill
-Alt+E | Go to Mining
+Alt+E | Go to Mining Camp
+. | Go to Next Idle Villager
 
 # Army
 ## Select all
 Ctrl+B | Barracks
-Ctrl+A | Archery Range
-Ctrl+S | Stable
-Ctrl+W | Siege Workshop
-Ctrl+C | Castle
-Ctrl+X | Monastery
+Ctrl+A | Archery Ranges
+Ctrl+S | Stables
+Ctrl+W | Siege Workshops
+Ctrl+C | Castles
+Ctrl+X | Monasteries
 Ctrl+D | Docks
-Ctrl+F | Blacksmith
-Ctrl+R | University
-Shift+, | All military
+Ctrl+F | Blacksmiths
+Ctrl+R | Universities
+Ctrl+, | Land/Naval Military
+Shift+, | Idle Land/Naval Military
 
-## Commands
-Tab | Attack move
+## Military Units
+Tab | Attack Move
 Q | Patrol
 W | Guard
 E | Follow
-G | Stop
-T | Garrison
+G | Auto Scout
+B | Special Ability
 
 ## Stances
 A | Aggressive
 S | Defensive
-D | Stand ground
-F | No attack
+D | Stand Ground
+F | No Attack
 
 ## Formations
 Z | Line
@@ -85,30 +94,67 @@ X | Box
 C | Staggered
 V | Flank
 
-# Tech
-## Units
-> | Barracks | Range | Stable
-Q | Militia | Archer | Scout
-W | Spear | Skirm | Knight
-E |  | Cav Archer | Camel
-A | Swords | Crossbow | Light Cav
-S | Pike | Elite Skirm | Cavalier
-Z | Supplies | Thumb Ring | Bloodlines
+# Units
+## Train + upgrade
+> | Barracks  Ctrl+B | Archery Range  Ctrl+A | Stable  Ctrl+S
+Q | Militia-line | Archer-line | Scout Cavalry, Hussar
+W | Spearman-line | Skirmisher | Knight-line
+E | Condottiero | Cavalry Archer | Camel Rider
+A | Swordsmen | Crossbowman, Arbalester | Light Cavalry, Hussar
+S | Pikeman, Halberdier | Elite, Imperial Skirmisher | Knight-line
+D |  | Cavalry Archer | Heavy, Imperial Camel
+Z | Gambesons | Thumb Ring | Bloodlines
 X | Squires |  | Husbandry
+C | Arson | Parthian Tactics |
 
+## Siege Workshop  Ctrl+W
+Q | Battering Ram
+W | Mangonel, Onager
+E | Scorpion
+R | Bombard Cannon
+A | Capped, Siege Ram
+S | (Siege) Onager
+
+## Castle  Ctrl+C
+Q | Unique Unit
+W | Trebuchet
+E | Petard
+A | Elite Unique Unit
+Z | Hoardings
+C | Conscription
+
+# Tech
 ## Blacksmith  Ctrl+F
-Q | Melee attack
-W | Infantry armor
-E | Cavalry armor
-A | Archer attack
-S | Archer armor
+Q | Melee Attack Upgrades
+W | Infantry Armor Upgrades
+E | Cavalry Armor Upgrades
+A | Arrow Attack Upgrades
+S | Archer Armor Upgrades
 
 ## University  Ctrl+R
-Q | Masonry
+Q | Masonry, Architecture
+W | Treadmill Crane
 R | Ballistics
 T | Chemistry
+A | Siege Engineers
 S | Murder Holes
 
-## Eco
-Q | Farm / Wood / Gold
-W | Stone (Mining)
+## Economy
+Q | Mill · Farm, Pasture Upgrades
+Q | Lumber Camp · Wood Upgrades
+Q | Mining Camp · Gold Upgrades
+W | Mining Camp · Stone Upgrades
+
+## Market
+Q | Trade Cart
+W | Caravan
+E | Coinage, Banking
+R | Guilds
+
+## Monastery  Ctrl+X
+Q | Monk
+W | Redemption
+E | Atonement
+D | Illumination
+A | Sanctity
+R | Fervor
